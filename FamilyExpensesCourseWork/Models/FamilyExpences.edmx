@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FamilyExpensesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cExpensePurpose">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cFamilyMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FamilyRoleId" Type="int" />
+          <Property Name="FamilyId" Type="int" />
+        </EntityType>
+        <EntityType Name="cFamilyRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cIncomeCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cMonthlyIncome">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IncomeSum" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="IncomeCategoryId" Type="int" />
+          <Property Name="FamilyMemberId" Type="int" />
+        </EntityType>
+        <EntityType Name="vExpense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="ExpenseSum" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ExpensePurposeId" Type="int" />
+          <Property Name="FamilyMemberId" Type="int" />
+        </EntityType>
+        <EntityType Name="сFamily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__cFamilyMe__Famil__5165187F">
+          <End Role="cFamilyRole" Type="Self.cFamilyRole" Multiplicity="0..1" />
+          <End Role="cFamilyMember" Type="Self.cFamilyMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cFamilyRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cFamilyMember">
+              <PropertyRef Name="FamilyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cFamilyMe__Famil__52593CB8">
+          <End Role="сFamily" Type="Self.сFamily" Multiplicity="0..1" />
+          <End Role="cFamilyMember" Type="Self.cFamilyMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="сFamily">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cFamilyMember">
+              <PropertyRef Name="FamilyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cMonthlyI__Famil__5EBF139D">
+          <End Role="cFamilyMember" Type="Self.cFamilyMember" Multiplicity="0..1" />
+          <End Role="cMonthlyIncome" Type="Self.cMonthlyIncome" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cFamilyMember">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cMonthlyIncome">
+              <PropertyRef Name="FamilyMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cMonthlyI__Incom__5DCAEF64">
+          <End Role="cIncomeCategory" Type="Self.cIncomeCategory" Multiplicity="0..1" />
+          <End Role="cMonthlyIncome" Type="Self.cMonthlyIncome" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cIncomeCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cMonthlyIncome">
+              <PropertyRef Name="IncomeCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__vExpense__Expens__5629CD9C">
+          <End Role="cExpensePurpose" Type="Self.cExpensePurpose" Multiplicity="0..1" />
+          <End Role="vExpense" Type="Self.vExpense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cExpensePurpose">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="vExpense">
+              <PropertyRef Name="ExpensePurposeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__vExpense__Family__571DF1D5">
+          <End Role="cFamilyMember" Type="Self.cFamilyMember" Multiplicity="0..1" />
+          <End Role="vExpense" Type="Self.vExpense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cFamilyMember">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="vExpense">
+              <PropertyRef Name="FamilyMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FamilyExpensesModelStoreContainer">
+          <EntitySet Name="cExpensePurpose" EntityType="Self.cExpensePurpose" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cFamilyMember" EntityType="Self.cFamilyMember" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cFamilyRole" EntityType="Self.cFamilyRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cIncomeCategory" EntityType="Self.cIncomeCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cMonthlyIncome" EntityType="Self.cMonthlyIncome" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vExpense" EntityType="Self.vExpense" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="сFamily" EntityType="Self.сFamily" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__cFamilyMe__Famil__5165187F" Association="Self.FK__cFamilyMe__Famil__5165187F">
+            <End Role="cFamilyRole" EntitySet="cFamilyRole" />
+            <End Role="cFamilyMember" EntitySet="cFamilyMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cFamilyMe__Famil__52593CB8" Association="Self.FK__cFamilyMe__Famil__52593CB8">
+            <End Role="сFamily" EntitySet="сFamily" />
+            <End Role="cFamilyMember" EntitySet="cFamilyMember" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cMonthlyI__Famil__5EBF139D" Association="Self.FK__cMonthlyI__Famil__5EBF139D">
+            <End Role="cFamilyMember" EntitySet="cFamilyMember" />
+            <End Role="cMonthlyIncome" EntitySet="cMonthlyIncome" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cMonthlyI__Incom__5DCAEF64" Association="Self.FK__cMonthlyI__Incom__5DCAEF64">
+            <End Role="cIncomeCategory" EntitySet="cIncomeCategory" />
+            <End Role="cMonthlyIncome" EntitySet="cMonthlyIncome" />
+          </AssociationSet>
+          <AssociationSet Name="FK__vExpense__Expens__5629CD9C" Association="Self.FK__vExpense__Expens__5629CD9C">
+            <End Role="cExpensePurpose" EntitySet="cExpensePurpose" />
+            <End Role="vExpense" EntitySet="vExpense" />
+          </AssociationSet>
+          <AssociationSet Name="FK__vExpense__Family__571DF1D5" Association="Self.FK__vExpense__Family__571DF1D5">
+            <End Role="cFamilyMember" EntitySet="cFamilyMember" />
+            <End Role="vExpense" EntitySet="vExpense" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FamilyExpensesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cExpensePurpose">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="vExpenses" Relationship="Self.FK__vExpense__Expens__5629CD9C" FromRole="cExpensePurpose" ToRole="vExpense" />
+        </EntityType>
+        <EntityType Name="cFamilyMember">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FamilyRoleId" Type="Int32" />
+          <Property Name="FamilyId" Type="Int32" />
+          <NavigationProperty Name="cFamilyRole" Relationship="Self.FK__cFamilyMe__Famil__5165187F" FromRole="cFamilyMember" ToRole="cFamilyRole" />
+          <NavigationProperty Name="сFamily" Relationship="Self.FK__cFamilyMe__Famil__52593CB8" FromRole="cFamilyMember" ToRole="сFamily" />
+          <NavigationProperty Name="cMonthlyIncomes" Relationship="Self.FK__cMonthlyI__Famil__5EBF139D" FromRole="cFamilyMember" ToRole="cMonthlyIncome" />
+          <NavigationProperty Name="vExpenses" Relationship="Self.FK__vExpense__Family__571DF1D5" FromRole="cFamilyMember" ToRole="vExpense" />
+        </EntityType>
+        <EntityType Name="cFamilyRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="cFamilyMembers" Relationship="Self.FK__cFamilyMe__Famil__5165187F" FromRole="cFamilyRole" ToRole="cFamilyMember" />
+        </EntityType>
+        <EntityType Name="cIncomeCategory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="cMonthlyIncomes" Relationship="Self.FK__cMonthlyI__Incom__5DCAEF64" FromRole="cIncomeCategory" ToRole="cMonthlyIncome" />
+        </EntityType>
+        <EntityType Name="cMonthlyIncome">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IncomeSum" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="IncomeCategoryId" Type="Int32" />
+          <Property Name="FamilyMemberId" Type="Int32" />
+          <NavigationProperty Name="cFamilyMember" Relationship="Self.FK__cMonthlyI__Famil__5EBF139D" FromRole="cMonthlyIncome" ToRole="cFamilyMember" />
+          <NavigationProperty Name="cIncomeCategory" Relationship="Self.FK__cMonthlyI__Incom__5DCAEF64" FromRole="cMonthlyIncome" ToRole="cIncomeCategory" />
+        </EntityType>
+        <EntityType Name="vExpense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="ExpenseSum" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ExpensePurposeId" Type="Int32" />
+          <Property Name="FamilyMemberId" Type="Int32" />
+          <NavigationProperty Name="cExpensePurpose" Relationship="Self.FK__vExpense__Expens__5629CD9C" FromRole="vExpense" ToRole="cExpensePurpose" />
+          <NavigationProperty Name="cFamilyMember" Relationship="Self.FK__vExpense__Family__571DF1D5" FromRole="vExpense" ToRole="cFamilyMember" />
+        </EntityType>
+        <EntityType Name="сFamily">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Surname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="cFamilyMembers" Relationship="Self.FK__cFamilyMe__Famil__52593CB8" FromRole="сFamily" ToRole="cFamilyMember" />
+        </EntityType>
+        <Association Name="FK__vExpense__Expens__5629CD9C">
+          <End Role="cExpensePurpose" Type="Self.cExpensePurpose" Multiplicity="0..1" />
+          <End Role="vExpense" Type="Self.vExpense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cExpensePurpose">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="vExpense">
+              <PropertyRef Name="ExpensePurposeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cFamilyMe__Famil__5165187F">
+          <End Role="cFamilyRole" Type="Self.cFamilyRole" Multiplicity="0..1" />
+          <End Role="cFamilyMember" Type="Self.cFamilyMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cFamilyRole">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cFamilyMember">
+              <PropertyRef Name="FamilyRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cFamilyMe__Famil__52593CB8">
+          <End Role="сFamily" Type="Self.сFamily" Multiplicity="0..1" />
+          <End Role="cFamilyMember" Type="Self.cFamilyMember" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="сFamily">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cFamilyMember">
+              <PropertyRef Name="FamilyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cMonthlyI__Famil__5EBF139D">
+          <End Role="cFamilyMember" Type="Self.cFamilyMember" Multiplicity="0..1" />
+          <End Role="cMonthlyIncome" Type="Self.cMonthlyIncome" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cFamilyMember">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cMonthlyIncome">
+              <PropertyRef Name="FamilyMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__vExpense__Family__571DF1D5">
+          <End Role="cFamilyMember" Type="Self.cFamilyMember" Multiplicity="0..1" />
+          <End Role="vExpense" Type="Self.vExpense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cFamilyMember">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="vExpense">
+              <PropertyRef Name="FamilyMemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cMonthlyI__Incom__5DCAEF64">
+          <End Role="cIncomeCategory" Type="Self.cIncomeCategory" Multiplicity="0..1" />
+          <End Role="cMonthlyIncome" Type="Self.cMonthlyIncome" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cIncomeCategory">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="cMonthlyIncome">
+              <PropertyRef Name="IncomeCategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FamilyExpensesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cExpensePurposes" EntityType="Self.cExpensePurpose" />
+          <EntitySet Name="cFamilyMembers" EntityType="Self.cFamilyMember" />
+          <EntitySet Name="cFamilyRoles" EntityType="Self.cFamilyRole" />
+          <EntitySet Name="cIncomeCategories" EntityType="Self.cIncomeCategory" />
+          <EntitySet Name="cMonthlyIncomes" EntityType="Self.cMonthlyIncome" />
+          <EntitySet Name="vExpenses" EntityType="Self.vExpense" />
+          <EntitySet Name="сFamily" EntityType="Self.сFamily" />
+          <AssociationSet Name="FK__vExpense__Expens__5629CD9C" Association="Self.FK__vExpense__Expens__5629CD9C">
+            <End Role="cExpensePurpose" EntitySet="cExpensePurposes" />
+            <End Role="vExpense" EntitySet="vExpenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cFamilyMe__Famil__5165187F" Association="Self.FK__cFamilyMe__Famil__5165187F">
+            <End Role="cFamilyRole" EntitySet="cFamilyRoles" />
+            <End Role="cFamilyMember" EntitySet="cFamilyMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cFamilyMe__Famil__52593CB8" Association="Self.FK__cFamilyMe__Famil__52593CB8">
+            <End Role="сFamily" EntitySet="сFamily" />
+            <End Role="cFamilyMember" EntitySet="cFamilyMembers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cMonthlyI__Famil__5EBF139D" Association="Self.FK__cMonthlyI__Famil__5EBF139D">
+            <End Role="cFamilyMember" EntitySet="cFamilyMembers" />
+            <End Role="cMonthlyIncome" EntitySet="cMonthlyIncomes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__vExpense__Family__571DF1D5" Association="Self.FK__vExpense__Family__571DF1D5">
+            <End Role="cFamilyMember" EntitySet="cFamilyMembers" />
+            <End Role="vExpense" EntitySet="vExpenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cMonthlyI__Incom__5DCAEF64" Association="Self.FK__cMonthlyI__Incom__5DCAEF64">
+            <End Role="cIncomeCategory" EntitySet="cIncomeCategories" />
+            <End Role="cMonthlyIncome" EntitySet="cMonthlyIncomes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FamilyExpensesModelStoreContainer" CdmEntityContainer="FamilyExpensesEntities">
+          <EntitySetMapping Name="cExpensePurposes">
+            <EntityTypeMapping TypeName="FamilyExpensesModel.cExpensePurpose">
+              <MappingFragment StoreEntitySet="cExpensePurpose">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cFamilyMembers">
+            <EntityTypeMapping TypeName="FamilyExpensesModel.cFamilyMember">
+              <MappingFragment StoreEntitySet="cFamilyMember">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FamilyRoleId" ColumnName="FamilyRoleId" />
+                <ScalarProperty Name="FamilyId" ColumnName="FamilyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cFamilyRoles">
+            <EntityTypeMapping TypeName="FamilyExpensesModel.cFamilyRole">
+              <MappingFragment StoreEntitySet="cFamilyRole">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cIncomeCategories">
+            <EntityTypeMapping TypeName="FamilyExpensesModel.cIncomeCategory">
+              <MappingFragment StoreEntitySet="cIncomeCategory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cMonthlyIncomes">
+            <EntityTypeMapping TypeName="FamilyExpensesModel.cMonthlyIncome">
+              <MappingFragment StoreEntitySet="cMonthlyIncome">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IncomeSum" ColumnName="IncomeSum" />
+                <ScalarProperty Name="IncomeCategoryId" ColumnName="IncomeCategoryId" />
+                <ScalarProperty Name="FamilyMemberId" ColumnName="FamilyMemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vExpenses">
+            <EntityTypeMapping TypeName="FamilyExpensesModel.vExpense">
+              <MappingFragment StoreEntitySet="vExpense">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ExpenseSum" ColumnName="ExpenseSum" />
+                <ScalarProperty Name="ExpensePurposeId" ColumnName="ExpensePurposeId" />
+                <ScalarProperty Name="FamilyMemberId" ColumnName="FamilyMemberId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="сFamily">
+            <EntityTypeMapping TypeName="FamilyExpensesModel.сFamily">
+              <MappingFragment StoreEntitySet="сFamily">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

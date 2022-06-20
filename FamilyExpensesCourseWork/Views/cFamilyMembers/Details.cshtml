@@ -1,0 +1,59 @@
+﻿@model FamilyExpensesCourseWork.Models.cFamilyMember
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>cFamilyMember</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.cFamilyRole.Role)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cFamilyRole.Role)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.сFamily.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.сFamily.Surname)
+        </dd>
+
+        <dt>
+            Income Sum
+        </dt>
+
+        <dd>
+            @ViewBag.IncomeSum
+        </dd>
+
+        <dt>
+            Expense Sum
+        </dt>
+
+        <dd>
+            @ViewBag.ExpenseSum
+        </dd>
+
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

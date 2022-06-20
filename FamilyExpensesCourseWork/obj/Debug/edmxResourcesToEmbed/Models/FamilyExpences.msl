@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FamilyExpensesModelStoreContainer" CdmEntityContainer="FamilyExpensesEntities">
+    <EntitySetMapping Name="cExpensePurposes">
+      <EntityTypeMapping TypeName="FamilyExpensesModel.cExpensePurpose">
+        <MappingFragment StoreEntitySet="cExpensePurpose">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cFamilyMembers">
+      <EntityTypeMapping TypeName="FamilyExpensesModel.cFamilyMember">
+        <MappingFragment StoreEntitySet="cFamilyMember">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FamilyRoleId" ColumnName="FamilyRoleId" />
+          <ScalarProperty Name="FamilyId" ColumnName="FamilyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cFamilyRoles">
+      <EntityTypeMapping TypeName="FamilyExpensesModel.cFamilyRole">
+        <MappingFragment StoreEntitySet="cFamilyRole">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cIncomeCategories">
+      <EntityTypeMapping TypeName="FamilyExpensesModel.cIncomeCategory">
+        <MappingFragment StoreEntitySet="cIncomeCategory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="cMonthlyIncomes">
+      <EntityTypeMapping TypeName="FamilyExpensesModel.cMonthlyIncome">
+        <MappingFragment StoreEntitySet="cMonthlyIncome">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="IncomeSum" ColumnName="IncomeSum" />
+          <ScalarProperty Name="IncomeCategoryId" ColumnName="IncomeCategoryId" />
+          <ScalarProperty Name="FamilyMemberId" ColumnName="FamilyMemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="vExpenses">
+      <EntityTypeMapping TypeName="FamilyExpensesModel.vExpense">
+        <MappingFragment StoreEntitySet="vExpense">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="ExpenseSum" ColumnName="ExpenseSum" />
+          <ScalarProperty Name="ExpensePurposeId" ColumnName="ExpensePurposeId" />
+          <ScalarProperty Name="FamilyMemberId" ColumnName="FamilyMemberId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="сFamily">
+      <EntityTypeMapping TypeName="FamilyExpensesModel.сFamily">
+        <MappingFragment StoreEntitySet="сFamily">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

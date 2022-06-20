@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6121b4ce045d40df8c3c5802992b89f1" Name="Diagram1">
+        <EntityTypeShape EntityType="FamilyExpensesModel.cExpensePurpose" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyExpensesModel.cFamilyMember" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyExpensesModel.cFamilyRole" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyExpensesModel.cIncomeCategory" Width="1.5" PointX="3" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyExpensesModel.cMonthlyIncome" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyExpensesModel.vExpense" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FamilyExpensesModel.сFamily" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="FamilyExpensesModel.FK__vExpense__Expens__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyExpensesModel.FK__cFamilyMe__Famil__5165187F" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyExpensesModel.FK__cFamilyMe__Famil__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyExpensesModel.FK__cMonthlyI__Famil__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyExpensesModel.FK__vExpense__Family__571DF1D5" ManuallyRouted="false" />
+        <AssociationConnector Association="FamilyExpensesModel.FK__cMonthlyI__Incom__5DCAEF64" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
